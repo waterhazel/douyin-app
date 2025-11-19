@@ -1,0 +1,31 @@
+{
+    // --- 核心家规：保存时自动洗澡 (格式化) ---
+    "editor.formatOnSave": true,
+    // 指定 Prettier 为默认的美容师
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // --- 针对不同文件的特殊处理 ---
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // --- 配合 ESLint (题目要求的硬骨头) ---
+    // 保存时，自动修复那些 ESLint 认为不规范的错误
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    // --- 视觉优化 (让你看文件列表更舒服) ---
+    // 比如把 package-lock.json 折叠到 package.json 下面
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock",
+        "tsconfig.json": "tsconfig.*.json"
+    }
+}

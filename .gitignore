@@ -1,0 +1,10 @@
+# 忽略所有 node_modules (不管是前端还是后端的)
+**/node_modules
+
+# 忽略打包后的文件
+**/dist
+**/build
+
+# 忽略本地环境变量 (带密码的不要上传)
+.env
+*.env
