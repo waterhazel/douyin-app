@@ -45,13 +45,35 @@ export const createVideo = async (req: Request, res: Response) => {
   }
 };
 
-// 获取视频列表 (顺手写了，方便等下测试)
+// 获取视频列表 (支持搜索 + 排序)
 export const getVideos = async (req: Request, res: Response) => {
-  const videos = await prisma.video.findMany({
-    include: { author: true }, // 把作者信息也查出来
-    orderBy: { createdAt: "desc" }, // 按时间倒序
-  });
-  res.json(videos);
+  try {
+    // 1. 多接收一个 sort 参数
+    const { keyword, sort } = req.query;
+
+    const whereCondition = keyword
+      ? {
+          OR: [
+            { title: { contains: String(keyword) } },
+            { description: { contains: String(keyword) } },
+          ],
+        }
+      : {};
+
+    // 2. 决定排序方式 (默认是 desc 倒序)
+    const orderByCondition =
+      sort === "oldest" ? { createdAt: "asc" } : { createdAt: "desc" };
+
+    const videos = await prisma.video.findMany({
+      where: whereCondition,
+      include: { author: true },
+      orderBy: orderByCondition, // <--- 应用排序
+    });
+
+    res.json(videos);
+  } catch (error) {
+    res.status(500).json({ error: "获取视频失败" });
+  }
 };
 
 // 删除视频 (包含物理文件删除)
