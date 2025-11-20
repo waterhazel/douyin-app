@@ -1,11 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, Card, message } from "antd";
 import axios from "axios";
 
 const Login = () => {
-  // 这里的类型是 Ant Design 帮我们定义的
+  const navigate = useNavigate();
   const onFinish = async (values: any) => {
     try {
-      // 1. 发送请求给后端 (注意端口是 3000)
+      // 1. axios 请求代码
       const res = await axios.post("http://localhost:3000/api/auth/login", {
         username: values.username,
         password: values.password,
@@ -13,10 +14,10 @@ const Login = () => {
 
       // 2. 登录成功
       message.success("登录成功！欢迎回来 " + res.data.user.username);
-
-      // 3. 把通行证 (Token) 存到浏览器的本地存储里
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      navigate("/");
     } catch (error: any) {
       // 4. 登录失败
       // 如果后端返回了错误信息，就显示后端的；否则显示默认的
