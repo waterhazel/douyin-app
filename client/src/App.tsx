@@ -1,9 +1,8 @@
-import Login from "./pages/Login";
+import Home from "./pages/Home"; // <--- 改这里
 
 function App() {
   return (
-    // 这里以后会加路由 (Router)，现在先直接显示登录页测试
-    <Login />
+    <Home /> // <--- 改这里
   );
 }
 
