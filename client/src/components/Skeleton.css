@@ -1,0 +1,64 @@
+/* client/src/components/Skeleton.css */
+
+/* 骨架屏闪烁动画定义 */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  } /* 动画开始时背景在左边 */
+  100% {
+    background-position: 200% 0;
+  } /* 动画结束时背景在右边 */
+}
+
+/* 骨架卡片的外层容器样式 */
+.skeleton-card {
+  background: #fff; /* 白色背景 */
+  border-radius: 12px; /* 圆角 */
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/* 所有需要“闪烁”的灰色占位块的通用样式 */
+.skeleton-video,
+.skeleton-avatar,
+.skeleton-text {
+  background: #f0f2f5; /* 默认灰色背景 */
+  /* 关键：渐变背景 + 动画，形成“光影”闪烁效果 */
+  background-image: linear-gradient(
+    90deg,
+    #f0f2f5 25%,
+    #e6e8eb 37%,
+    #f0f2f5 63%
+  );
+  background-size: 400% 100%; /* 让渐变背景比元素宽，才能移动 */
+  animation: shimmer 1.4s ease infinite; /* 应用闪烁动画 */
+}
+
+/* 视频占位块的具体尺寸 */
+.skeleton-video {
+  width: 100%;
+  height: 200px; /* 模拟视频高度 */
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* 信息区域的布局 */
+.skeleton-info {
+  display: flex;
+  align-items: center;
+}
+
+/* 头像占位块的具体尺寸 */
+.skeleton-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%; /* 圆形头像 */
+  margin-right: 10px;
+}
+
+/* 文本占位块的具体尺寸 */
+.skeleton-text {
+  height: 16px;
+  flex: 1; /* 占据剩余空间 */
+  border-radius: 4px;
+}

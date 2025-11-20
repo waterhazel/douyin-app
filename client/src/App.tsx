@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Publish from "./pages/Publish";
 import AppLayout from "./components/AppLayout";
+import Manage from "./pages/Manage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           {/* index 表示默认显示的子页面 (首页) */}
           <Route index element={<Home />} />
           <Route path="publish" element={<Publish />} />
+          <Route path="manage" element={<Manage />} />
         </Route>
 
         {/* 3. 如果乱输地址，自动跳回首页 */}

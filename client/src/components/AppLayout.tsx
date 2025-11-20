@@ -5,6 +5,7 @@ import {
   HomeOutlined,
   CloudUploadOutlined,
   LogoutOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 
 const { Header, Content } = Layout;
@@ -17,6 +18,7 @@ const AppLayout = () => {
   const handleMenuClick = (e: any) => {
     if (e.key === "home") navigate("/");
     if (e.key === "publish") navigate("/publish");
+    if (e.key === "manage") navigate("/manage");
   };
 
   // 处理退出登录
@@ -27,8 +29,10 @@ const AppLayout = () => {
     navigate("/login"); // 踢回登录页
   };
 
-  // 确定当前选中的是哪个菜单 (为了高亮显示)
-  const selectedKey = location.pathname === "/publish" ? "publish" : "home";
+  // 根据当前的网址路径 (pathname) 来决定哪个菜单亮起
+  let selectedKey = "home";
+  if (location.pathname.includes("publish")) selectedKey = "publish";
+  if (location.pathname.includes("manage")) selectedKey = "manage";
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -55,6 +59,7 @@ const AppLayout = () => {
           items={[
             { key: "home", icon: <HomeOutlined />, label: "首页" },
             { key: "publish", icon: <CloudUploadOutlined />, label: "发视频" },
+            { key: "manage", icon: <AppstoreOutlined />, label: "管理" },
           ]}
           style={{ flex: 1, minWidth: 0 }}
         />
