@@ -1,0 +1,28 @@
+/* client/src/pages/Home.css */
+
+/* 瀑布流容器 */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -20px; /* 抵消第一列的左边距 */
+  width: auto;
+}
+
+/* 每一列的样式 */
+.my-masonry-grid_column {
+  padding-left: 20px; /* 列与列之间的间距 */
+  background-clip: padding-box;
+}
+
+/* 每一个视频卡片的样式 */
+.video-card {
+  margin-bottom: 20px; /* 卡片上下间距 */
+  border-radius: 12px !important; /* 圆角 */
+  overflow: hidden;
+  transition: all 0.3s; /* 悬停动画 */
+}
+
+/* 鼠标悬停时，卡片稍微浮起 */
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
