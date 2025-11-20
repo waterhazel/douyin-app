@@ -1,0 +1,67 @@
+// server/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 1. 用户表
+model User {
+  id        Int      @id @default(autoincrement()) // 用户ID (自动+1)
+  username  String   @unique                       // 用户名 (不能重复)
+  password  String                                 // 密码 (加密存)
+  avatar    String?                                // 头像地址 (可选)
+  createdAt DateTime @default(now())               // 注册时间
+  
+  // 关系：一个用户可以发很多视频，也可以有很多评论
+  videos    Video[]
+  comments  Comment[]
+  likes     Like[]
+}
+
+// 2. 视频表
+model Video {
+  id          Int      @id @default(autoincrement())
+  title       String                                 // 标题
+  description String?                                // 简介
+  videoUrl    String                                 // 视频文件地址
+  coverUrl    String?                                // 封面图地址
+  createdAt   DateTime @default(now())               // 发布时间
+  
+  // 关系：视频属于某个用户
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+
+  comments    Comment[]
+  likes       Like[]
+}
+
+// 3. 评论表
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  videoId   Int
+  video     Video    @relation(fields: [videoId], references: [id])
+}
+
+// 4. 点赞表 (记录谁给哪个视频点了赞)
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  
+  videoId   Int
+  video     Video    @relation(fields: [videoId], references: [id])
+
+  // 确保一个用户对一个视频只能点赞一次
+  @@unique([userId, videoId]) 
+}
